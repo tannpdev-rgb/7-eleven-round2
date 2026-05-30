@@ -1,0 +1,61 @@
+server:
+ port: 8080
+ servlet:
+   context-path: /
+#debug: true
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:ecommerce_db}
+    password: ${DB_PASSWORD:Postgres@2026}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER:postgres}
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    locations: classpath:db/migration
+    table: schema_version
+
+# MyBatis Cấu hình
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath:dao/*.xml
+
+#  type-aliases-package: com.tannpdev.backend.mbg.model
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    use-generated-keys: true
+#    default-executor-type: simple
+
+# PageHelper Phân trang Cấu hình
+pagehelper:
+  helperDialect: postgresql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+# Springdoc OpenAPI / Swagger UI Cấu hình
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: alpha
+    tagsSorter: alpha
+  writer-with-default-pretty-printer: true
+
+# Cấu hình Custom cho Ứng dụng (Định dạng phẳng, phân tách bằng dấu phẩy cho CORS `@Value` an toàn)
+app:
+  cors:
+    allowed-origins: "http://localhost:3000,http://localhost:8000,http://localhost:5173,http://127.0.0.1:3000"
+    allowed-methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS"
+    allowed-headers: "*"
+    allow-credentials: true
+    max-age: 3600
+
+#logging:
+#  level:
+#    org.springframework.boot.autoconfigure.flyway: DEBUG
+#    org.flywaydb: DEBUG
+

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tannpdev.backend.dao.ProductDao">
+    
+    <resultMap id="ProductDetailResultMap" type="com.tannpdev.backend.dto.ProductDetailResult">
+        <id column="p_id" jdbcType="BIGINT" property="id" />
+        <result column="p_name" jdbcType="VARCHAR" property="name" />
+        <result column="p_slug" jdbcType="VARCHAR" property="slug" />
+        <result column="p_product_code" jdbcType="VARCHAR" property="productCode" />
+        <result column="p_short_description" jdbcType="VARCHAR" property="shortDescription" />
+        <result column="p_description" jdbcType="VARCHAR" property="description" />
+        <result column="p_price" jdbcType="DECIMAL" property="price" />
+        <result column="p_sale_price" jdbcType="DECIMAL" property="salePrice" />
+        <result column="p_stock_quantity" jdbcType="INTEGER" property="stockQuantity" />
+        <result column="p_is_active" jdbcType="BOOLEAN" property="isActive" />
+        <result column="p_category_id" jdbcType="BIGINT" property="categoryId" />
+        <result column="p_brand_id" jdbcType="BIGINT" property="brandId" />
+        <result column="p_category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="p_brand_name" jdbcType="VARCHAR" property="brandName" />
+        <result column="p_thumbnail_url" jdbcType="VARCHAR" property="thumbnailUrl" />
+        <result column="p_created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="p_updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="p_created_by" jdbcType="BIGINT" property="createdBy" />
+        <result column="p_updated_by" jdbcType="BIGINT" property="updatedBy" />
+        <result column="p_is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+        
+        <collection property="images" ofType="com.tannpdev.backend.dto.ProductImageResult">
+            <id column="pi_id" jdbcType="BIGINT" property="id" />
+            <result column="pi_product_id" jdbcType="BIGINT" property="productId" />
+            <result column="pi_image_url" jdbcType="VARCHAR" property="imageUrl" />
+            <result column="pi_is_thumbnail" jdbcType="BOOLEAN" property="isThumbnail" />
+            <result column="pi_display_order" jdbcType="INTEGER" property="displayOrder" />
+            <result column="pi_created_at" jdbcType="TIMESTAMP" property="createdAt" />
+            <result column="pi_updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+            <result column="pi_created_by" jdbcType="BIGINT" property="createdBy" />
+            <result column="pi_updated_by" jdbcType="BIGINT" property="updatedBy" />
+            <result column="pi_is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+        </collection>
+        
+        <collection property="variants" ofType="com.tannpdev.backend.dto.ProductVariantResult">
+            <id column="pv_id" jdbcType="BIGINT" property="id" />
+            <result column="pv_product_id" jdbcType="BIGINT" property="productId" />
+            <result column="pv_sku" jdbcType="VARCHAR" property="sku" />
+            <result column="pv_title" jdbcType="VARCHAR" property="title" />
+            <result column="pv_price" jdbcType="DECIMAL" property="price" />
+            <result column="pv_sale_price" jdbcType="DECIMAL" property="salePrice" />
+            <result column="pv_stock_quantity" jdbcType="INTEGER" property="stockQuantity" />
+            <result column="pv_image_url" jdbcType="VARCHAR" property="imageUrl" />
+            <result column="pv_created_at" jdbcType="TIMESTAMP" property="createdAt" />
+            <result column="pv_updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+            <result column="pv_created_by" jdbcType="BIGINT" property="createdBy" />
+            <result column="pv_updated_by" jdbcType="BIGINT" property="updatedBy" />
+            <result column="pv_is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+        </collection>
+    </resultMap>
+
+    <select id="getDetail" resultMap="ProductDetailResultMap">
+        SELECT 
+            p.id AS p_id,
+            p.name AS p_name,
+            p.slug AS p_slug,
+            p.product_code AS p_product_code,
+            p.short_description AS p_short_description,
+            p.description AS p_description,
+            p.price AS p_price,
+            p.sale_price AS p_sale_price,
+            p.stock_quantity AS p_stock_quantity,
+            p.is_active AS p_is_active,
+            p.category_id AS p_category_id,
+            p.brand_id AS p_brand_id,
+            p.category_name AS p_category_name,
+            p.brand_name AS p_brand_name,
+            p.thumbnail_url AS p_thumbnail_url,
+            p.created_at AS p_created_at,
+            p.updated_at AS p_updated_at,
+            p.created_by AS p_created_by,
+            p.updated_by AS p_updated_by,
+            p.is_deleted AS p_is_deleted,
+            
+            pi.id AS pi_id,
+            pi.product_id AS pi_product_id,
+            pi.image_url AS pi_image_url,
+            pi.is_thumbnail AS pi_is_thumbnail,
+            pi.display_order AS pi_display_order,
+            pi.created_at AS pi_created_at,
+            pi.updated_at AS pi_updated_at,
+            pi.created_by AS pi_created_by,
+            pi.updated_by AS pi_updated_by,
+            pi.is_deleted AS pi_is_deleted,
+            
+            pv.id AS pv_id,
+            pv.product_id AS pv_product_id,
+            pv.sku AS pv_sku,
+            pv.title AS pv_title,
+            pv.price AS pv_price,
+            pv.sale_price AS pv_sale_price,
+            pv.stock_quantity AS pv_stock_quantity,
+            pv.image_url AS pv_image_url,
+            pv.created_at AS pv_created_at,
+            pv.updated_at AS pv_updated_at,
+            pv.created_by AS pv_created_by,
+            pv.updated_by AS pv_updated_by,
+            pv.is_deleted AS pv_is_deleted
+        FROM products p
+        LEFT JOIN product_images pi ON p.id = pi.product_id AND pi.is_deleted = false
+        LEFT JOIN product_variants pv ON p.id = pv.product_id AND pv.is_deleted = false
+        WHERE p.id = #{id} AND p.is_deleted = false
+    </select>
+
+    <update id="deductStockByProductCode">
+        UPDATE products
+        SET stock_quantity = stock_quantity - #{quantity}
+        WHERE product_code = #{productCode} 
+          AND stock_quantity >= #{quantity}
+          AND is_deleted = false
+    </update>
+
+    <!-- Client API ResultMap -->
+    <resultMap id="ClientProductDetailResultMap" type="com.tannpdev.backend.dto.client.ClientProductDetailResult">
+        <id column="p_id" jdbcType="BIGINT" property="id" />
+        <result column="p_name" jdbcType="VARCHAR" property="name" />
+        <result column="p_slug" jdbcType="VARCHAR" property="slug" />
+        <result column="p_product_code" jdbcType="VARCHAR" property="productCode" />
+        <result column="p_short_description" jdbcType="VARCHAR" property="shortDescription" />
+        <result column="p_description" jdbcType="VARCHAR" property="description" />
+        <result column="p_price" jdbcType="DECIMAL" property="price" />
+        <result column="p_sale_price" jdbcType="DECIMAL" property="salePrice" />
+        <result column="p_stock_quantity" jdbcType="INTEGER" property="stockQuantity" />
+        <result column="p_category_id" jdbcType="BIGINT" property="categoryId" />
+        <result column="p_brand_id" jdbcType="BIGINT" property="brandId" />
+        <result column="p_category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="p_brand_name" jdbcType="VARCHAR" property="brandName" />
+        <result column="p_thumbnail_url" jdbcType="VARCHAR" property="thumbnailUrl" />
+        
+        <collection property="images" ofType="com.tannpdev.backend.dto.client.ClientProductImageResult">
+            <id column="pi_id" jdbcType="BIGINT" property="id" />
+            <result column="pi_image_url" jdbcType="VARCHAR" property="imageUrl" />
+            <result column="pi_is_thumbnail" jdbcType="BOOLEAN" property="isThumbnail" />
+            <result column="pi_display_order" jdbcType="INTEGER" property="displayOrder" />
+        </collection>
+        
+        <collection property="variants" ofType="com.tannpdev.backend.dto.client.ClientProductVariantResult">
+            <id column="pv_id" jdbcType="BIGINT" property="id" />
+            <result column="pv_product_id" jdbcType="BIGINT" property="productId" />
+            <result column="pv_sku" jdbcType="VARCHAR" property="sku" />
+            <result column="pv_title" jdbcType="VARCHAR" property="title" />
+            <result column="pv_price" jdbcType="DECIMAL" property="price" />
+            <result column="pv_sale_price" jdbcType="DECIMAL" property="salePrice" />
+            <result column="pv_stock_quantity" jdbcType="INTEGER" property="stockQuantity" />
+            <result column="pv_image_url" jdbcType="VARCHAR" property="imageUrl" />
+        </collection>
+    </resultMap>
+
+    <select id="getClientDetailBySlug" resultMap="ClientProductDetailResultMap">
+        SELECT 
+            p.id AS p_id,
+            p.name AS p_name,
+            p.slug AS p_slug,
+            p.product_code AS p_product_code,
+            p.short_description AS p_short_description,
+            p.description AS p_description,
+            p.price AS p_price,
+            p.sale_price AS p_sale_price,
+            p.stock_quantity AS p_stock_quantity,
+            p.category_id AS p_category_id,
+            p.brand_id AS p_brand_id,
+            p.category_name AS p_category_name,
+            p.brand_name AS p_brand_name,
+            p.thumbnail_url AS p_thumbnail_url,
+            
+            pi.id AS pi_id,
+            pi.image_url AS pi_image_url,
+            pi.is_thumbnail AS pi_is_thumbnail,
+            pi.display_order AS pi_display_order,
+            
+            pv.id AS pv_id,
+            pv.product_id AS pv_product_id,
+            pv.sku AS pv_sku,
+            pv.title AS pv_title,
+            pv.price AS pv_price,
+            pv.sale_price AS pv_sale_price,
+            pv.stock_quantity AS pv_stock_quantity,
+            pv.image_url AS pv_image_url
+        FROM products p
+        LEFT JOIN product_images pi ON p.id = pi.product_id AND pi.is_deleted = false
+        LEFT JOIN product_variants pv ON p.id = pv.product_id AND pv.is_deleted = false
+        WHERE p.slug = #{slug} AND p.is_deleted = false AND p.is_active = true
+    </select>
+
+</mapper>

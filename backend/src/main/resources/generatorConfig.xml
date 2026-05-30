@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- Đọc thông tin kết nối từ file properties -->
+    <properties resource="generator.properties"/>
+
+    <context id="PostgreSQLContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+            <property name="remarksReporting" value="true"/>
+            <property name="useInformationSchema" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.tannpdev.backend.mbg.model"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.tannpdev.backend.mbg.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+        <table tableName="categories" domainObjectName="Category">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        
+        <table tableName="brands" domainObjectName="Brand">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        
+        <table tableName="products" domainObjectName="Product">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        
+        <table tableName="product_images" domainObjectName="ProductImage">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        
+        <table tableName="product_variants" domainObjectName="ProductVariant">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        
+        <table tableName="orders" domainObjectName="Order">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        
+        <table tableName="order_items" domainObjectName="OrderItem">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
