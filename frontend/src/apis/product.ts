@@ -25,7 +25,7 @@ export function getProductListAPI(params: ProductListQueryParam) {
   });
 }
 
-export function getClientProductListAPI(params: ProductListQueryParam & { categorySlug?: string, keyword?: string }) {
+export function getClientProductListAPI(params: ProductListQueryParam & { categorySlug?: string, keyword?: string, categoryId?: number }) {
   return http<any, CommonPage<ProductItem>>({
     url: "/v1/client/product/list",
     method: "get",

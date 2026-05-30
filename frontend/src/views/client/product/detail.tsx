@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Breadcrumb, Row, Col, Rate, Button, Tag, Divider, Spin, message, Carousel } from 'antd';
+import { Breadcrumb, Row, Col, Button, Tag, Spin, message } from 'antd';
 import { ShoppingCartOutlined, ThunderboltOutlined, SafetyCertificateOutlined, SyncOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
 import { getClientProductDetailAPI, getClientProductListAPI } from '@/apis/product';
 import QuantityInput from '@/components/client/QuantityInput';
 import { useCartStore } from '@/store/cartStore';
 import type { ProductVariantResult } from '@/types/product';
-import ProductCard from '@/components/client/ProductCard';
-
 export default function ProductDetailClient() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -240,7 +238,7 @@ export default function ProductDetailClient() {
       </div>
 
       {/* Related Products */}
-      {relatedProducts && relatedProducts.content?.length > 0 && (
+      {/* {relatedProducts && relatedProducts.content?.length > 0 && (
         <div className="content-box">
           <h2 className="section-title">Sản phẩm tương tự</h2>
           <Row gutter={[16, 16]}>
@@ -251,7 +249,7 @@ export default function ProductDetailClient() {
             ))}
           </Row>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 
-import { Layout as LayoutAntd, Menu, theme } from "antd";
+import { Layout as LayoutAntd, Menu } from "antd";
 import type { MenuProps } from "antd";
 import {AppstoreOutlined, ShoppingOutlined} from "@ant-design/icons";
 import '@/styles/admin.css';

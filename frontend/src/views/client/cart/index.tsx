@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Breadcrumb, Row, Col, Checkbox, Button, Input, Divider, Empty, Tag } from 'antd';
-import { DeleteOutlined, ShopOutlined, RightOutlined } from '@ant-design/icons';
+import { Breadcrumb, Row, Col, Checkbox, Button, Input, Divider, Empty } from 'antd';
+import { DeleteOutlined, ShopOutlined } from '@ant-design/icons';
 import { useCartStore } from '@/store/cartStore';
 import QuantityInput from '@/components/client/QuantityInput';
 
 export default function CartClient() {
   const navigate = useNavigate();
-  const { items, removeFromCart, updateQuantity, getCartTotal } = useCartStore();
+  const { items, removeFromCart, updateQuantity } = useCartStore();
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [promoCode, setPromoCode] = useState('');
 
@@ -42,8 +42,6 @@ export default function CartClient() {
     .reduce((total, item) => total + ((item.salePrice || item.price) * item.quantity), 0);
 
   const freeShippingThreshold = 200000;
-  const remainingForFreeShipping = Math.max(0, freeShippingThreshold - selectedTotal);
-  const progressPercent = Math.min(100, (selectedTotal / freeShippingThreshold) * 100);
 
   if (items.length === 0) {
     return (
@@ -106,7 +104,7 @@ export default function CartClient() {
 
           {/* Cart Items */}
           <div className="cart-items-box">
-            {items.map((item, index) => (
+            {items.map((item) => (
               <div key={item.sku} className="cart-item">
                 <Checkbox 
                   checked={selectedItems.includes(item.sku)}

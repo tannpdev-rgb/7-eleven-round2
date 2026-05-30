@@ -1,7 +1,7 @@
-import { AppstoreOutlined, UploadOutlined, PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, InputNumber, Row, Select, Space, Steps, Switch, Upload, message, Radio, Flex } from "antd";
 import Title from "antd/es/typography/Title";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { getAllCategoriesAPI } from "@/apis/category";

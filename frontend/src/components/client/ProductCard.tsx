@@ -1,5 +1,5 @@
 import React from 'react';
-import { StarFilled, PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import type { ProductItem } from '@/types/product';
 

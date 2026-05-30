@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { CommonResult } from "@/types/common";
+
 import { message } from "antd";
 
 const http = axios.create({
