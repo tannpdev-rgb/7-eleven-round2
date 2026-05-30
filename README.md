@@ -1,4 +1,4 @@
-# DailyMart - Convenience Store E-commerce Platform
+# DailyMart
 
 DailyMart là một hệ thống thương mại điện tử toàn diện (Full-stack E-commerce System) được thiết kế theo mô hình cửa hàng tiện lợi (như 7-Eleven, Circle K). Hệ thống bao gồm giao diện mua sắm dành cho khách hàng (Client Storefront) và hệ thống quản trị dành cho nhân viên (Admin Dashboard).
 
